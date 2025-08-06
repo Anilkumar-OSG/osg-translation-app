@@ -3,7 +3,7 @@ import pandas as pd
 import re
 import os
 from datetime import datetime
-from transformers import MarianMTModel, MarianTokenizer
+import requests
 from io import BytesIO
 
 st.set_page_config(page_title="OSG Translation App", layout="wide")
@@ -62,20 +62,34 @@ def split_preserve_segments(text):
             segments.append(('text', part))
     return segments
 
-def translate_preserving_tags(text, model, tokenizer):
+def translate_text_via_api(text, model_name):
+    hf_token = st.secrets["HF_TOKEN"]
+    api_url = f"https://api-inference.huggingface.co/models/{model_name}"
+    headers = {"Authorization": f"Bearer {hf_token}"}
+    payload = {"inputs": text}
+    try:
+        response = requests.post(api_url, headers=headers, json=payload)
+        response.raise_for_status()
+        result = response.json()
+        if isinstance(result, list) and 'translation_text' in result[0]:
+            return result[0]['translation_text']
+        elif isinstance(result, dict) and 'error' in result:
+            return f"[ERROR: {result['error']}]"
+        return text
+    except Exception as e:
+        return f"[API ERROR: {e}]"
+
+def translate_preserving_tags(text, model_name):
     segments = split_preserve_segments(text)
     to_translate = [clean_text(seg[1]) for seg in segments if seg[0] == 'text' and seg[1].strip()]
 
     if not to_translate:
         return text
 
-    try:
-        inputs = tokenizer(to_translate, return_tensors="pt", padding=True, truncation=True)
-        outputs = model.generate(**inputs, max_length=512, num_beams=4, early_stopping=True)
-        translations = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-    except Exception as e:
-        st.warning(f"Translation error: {e}")
-        return text
+    translations = []
+    for chunk in to_translate:
+        translated = translate_text_via_api(chunk, model_name)
+        translations.append(translated)
 
     result = []
     trans_index = 0
@@ -115,8 +129,7 @@ if uploaded_file:
         progress = st.progress(0)
 
         for idx, lang in enumerate(selected_langs):
-            tokenizer = MarianTokenizer.from_pretrained(LANG_MODELS[lang])
-            model = MarianMTModel.from_pretrained(LANG_MODELS[lang])
+            model_name = LANG_MODELS[lang]
             translated = []
             total = len(source)
 
@@ -129,7 +142,7 @@ if uploaded_file:
                 elif txt.lower() == "no":
                     translated.append("Nein" if lang == "German (de)" else "Non" if lang == "French (fr)" else "No")
                 else:
-                    translated.append(translate_preserving_tags(txt, model, tokenizer))
+                    translated.append(translate_preserving_tags(txt, model_name))
                 progress.progress(min(100, int(((idx + i / total) / len(selected_langs)) * 100)))
 
             df[lang] = translated
