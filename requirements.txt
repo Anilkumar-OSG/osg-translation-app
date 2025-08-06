@@ -1,4 +1,7 @@
 streamlit
 transformers
-sentencepiece
+torch
+pandas
+openpyxl
+sentencepiece==0.1.99
 protobuf
