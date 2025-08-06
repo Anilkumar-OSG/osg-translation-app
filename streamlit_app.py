@@ -25,7 +25,7 @@ LANG_MODELS = {
     "Chinese (zh)": "Helsinki-NLP/opus-mt-en-zh",
     "Dutch (nl)": "Helsinki-NLP/opus-mt-en-nl",
     "French (fr)": "Helsinki-NLP/opus-mt-en-fr",
-    "German (de)": "Helsinki-NLP/opus-mt-en-de",
+    "German (de)": "facebook/wmt19-en-de",
     "Hindi (hi)": "Helsinki-NLP/opus-mt-en-hi",
     "Italian (it)": "Helsinki-NLP/opus-mt-en-it",
     "Japanese (ja)": "staka/fugumt-en-ja",
