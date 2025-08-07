@@ -23,15 +23,16 @@ st.title("OSG Translation App")
 LANG_MODELS = {
     "Arabic (ar)": "Helsinki-NLP/opus-mt-en-ar",
     "Chinese (zh)": "Helsinki-NLP/opus-mt-en-zh",
-    "Dutch (nl)": "Helsinki-NLP/opus-mt-en-nl",
+    "Dutch (nl)": "Helsinki-NLP/opus-mt-en-nl",           
     "French (fr)": "Helsinki-NLP/opus-mt-en-fr",
-    "German (de)": "facebook/wmt19-en-de",
+    "German (de)": "Helsinki-NLP/opus-mt-en-de",          
     "Hindi (hi)": "Helsinki-NLP/opus-mt-en-hi",
-    "Italian (it)": "Helsinki-NLP/opus-mt-en-it",
+    "Italian (it)": "Helsinki-NLP/opus-mt-en-it",         
     "Japanese (ja)": "staka/fugumt-en-ja",
-    "Portuguese (pt)": "Helsinki-NLP/opus-mt-en-pt",
+    "Portuguese (pt)": "Helsinki-NLP/opus-mt-en-pt",     
     "Spanish (es)": "Helsinki-NLP/opus-mt-en-es"
 }
+
 
 COUNTRY_CODES = {"US", "UK", "CA", "DE", "FR", "IT", "JP", "CH", "IN"}
 
