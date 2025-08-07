@@ -23,15 +23,16 @@ st.title("OSG Translation App")
 LANG_MODELS = {
     "Arabic (ar)": "Helsinki-NLP/opus-mt-en-ar",
     "Chinese (zh)": "Helsinki-NLP/opus-mt-en-zh",
-    "Dutch (nl)": "Helsinki-NLP/opus-mt-en-nl-fairseq",
+    "Dutch (nl)": "Helsinki-NLP/opus-mt-en-nl",             # ✅ Works via API
     "French (fr)": "Helsinki-NLP/opus-mt-en-fr",
-    "German (de)": "Helsinki-NLP/opus-mt-en-de-fairseq",
+    "German (de)": "Helsinki-NLP/opus-mt-en-de",             # ✅ Works via API
     "Hindi (hi)": "Helsinki-NLP/opus-mt-en-hi",
-    "Italian (it)": "Helsinki-NLP/opus-mt-en-it-fairseq",
-    "Japanese (ja)": "staka/fugumt-en-ja",
-    "Portuguese (pt)": "Helsinki-NLP/opus-mt-en-pt-fairseq",
+    "Italian (it)": "Helsinki-NLP/opus-mt-en-it",            # ✅ Works via API
+    "Japanese (ja)": "staka/fugumt-en-ja",                   # ✅ Works via API
+    "Portuguese (pt)": "Helsinki-NLP/opus-mt-en-pt",         # ✅ Works via API
     "Spanish (es)": "Helsinki-NLP/opus-mt-en-es"
 }
+
 
 
 
